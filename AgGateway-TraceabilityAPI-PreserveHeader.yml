@@ -552,7 +552,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/traceableResourceUnitList'
-  /traceability/traceable-resource-unit/{id}/V1/container-state:
+  /traceability/V1/critical-tracking-event/{cteId}/traceable-resource-unit/{truId}/container-state:
     summary: ''
     description: ''
     patch:
@@ -565,9 +565,15 @@ paths:
         - Traceable Resource Unit
       operationId: updateContainerState
       parameters:
-        - name: id
+        - name: truId
           in: path
-          description: ''
+          description: 'identifier of the traceable resource unit'
+          required: true
+          schema:
+            type: string
+        - name: cteId
+          in: path
+          description: 'identifier of the critical tracking event'
           required: true
           schema:
             type: string
