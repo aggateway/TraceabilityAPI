@@ -614,6 +614,384 @@ components:
             containerStateRead: "Allows Container State data to be read"
             containerStateWrite: "Allows Container State data to be written"
   schemas:
+    status:
+      x-oagis-bie-guid: "491483e86fc24d4d82f421fcfc1b6e93"
+      x-oagis-bie-date-time: "2024-06-03T03:06:07+0000"
+      x-oagis-bie-version: "V1"
+      x-oagis-bie-den: "Status"
+      x-oagis-bie-uri: "https://oagiscore.net/profile_bie/936"
+      x-oagis-release: "10.11"
+      x-oagis-release-date: "2024-05-10"
+      type: "object"
+      additionalProperties: false
+      properties:
+        code:
+          example: "Started"
+          type: "string"
+          format: "normalizedString"
+        reasonCode:
+          example: ""
+          type: "string"
+          format: "normalizedString"
+        reason:
+          example: ""
+          type: "string"
+    container:
+      x-oagis-bie-guid: "2d592835eab94477b47335b077666bba"
+      x-oagis-bie-date-time: "2024-06-03T18:14:29+0000"
+      x-oagis-bie-version: "V1"
+      x-oagis-bie-den: "Container"
+      x-oagis-bie-uri: "https://oagiscore.net/profile_bie/940"
+      x-oagis-release: "10.11"
+      x-oagis-release-date: "2024-05-10"
+      type: "object"
+      description: "Container used at a specific point in time."
+      additionalProperties: false
+      properties:
+        typeCode:
+          description: "Based on the AgGateway Agrisemantics Container-Type enumeration.\
+            \ Issue 101 from ADAPT."
+          example: "Planter_Box"
+          type: "string"
+          format: "token"
+        id:
+          description: "Systematic identifier "
+          example: "1"
+          type: "string"
+          format: "normalizedString"
+        uuid:
+          example: "2b4847dd-a745-43dd-b1dd-0af3c6ba9de2"
+          type: "string"
+          format: "normalizedString"
+        sourceId:
+          example: "Data Platform"
+          type: "string"
+          format: "normalizedString"
+        partyId:
+          example: "RetailerA"
+          type: "string"
+          format: "normalizedString"
+        relatedId:
+          type: "array"
+          items:
+            type: "object"
+            additionalProperties: false
+            properties:
+              id:
+                example: ""
+                type: "string"
+                format: "normalizedString"
+              uuid:
+                example: ""
+                type: "string"
+                format: "normalizedString"
+              sourceId:
+                example: ""
+                type: "string"
+                format: "normalizedString"
+              partyId:
+                example: ""
+                type: "string"
+                format: "normalizedString"
+        description:
+          description: "Description of the container, for display purposes in a UI."
+          example: "Planter Bin 1 on Kinze"
+          type: "string"
+        containerGroupId:
+          type: "object"
+          required:
+          - "content"
+          additionalProperties: false
+          properties:
+            content:
+              type: "string"
+              format: "normalizedString"
+              example: "1"
+            typeCode:
+              example: "Section"
+              type: "string"
+              format: "token"
+        capacity:
+          description: "OEM specification of capacity."
+          type: "object"
+          additionalProperties: false
+          properties:
+            typeCode:
+              example: "Specified"
+              type: "string"
+              format: "token"
+            maximumVolumeMeasure:
+              description: "OEM specified maximum volume for the container."
+              type: "object"
+              required:
+              - "content"
+              additionalProperties: false
+              properties:
+                content:
+                  type: "number"
+                  example: "950"
+                unitCode:
+                  example: "BU"
+                  type: "string"
+                  format: "token"
+            maximumWeightMeasure:
+              description: "OEM specified maximum weight for the container."
+              type: "object"
+              required:
+              - "content"
+              additionalProperties: false
+              properties:
+                content:
+                  type: "number"
+                  example: "53200"
+                unitCode:
+                  example: "LBS"
+                  type: "string"
+                  format: "token"
+        deviceResource:
+          type: "object"
+          additionalProperties: false
+          properties:
+            uuid:
+              example: "570612be-db3b-4a76-944c-c11f3fb5bed8"
+              type: "string"
+              format: "normalizedString"
+            deviceItem:
+              description: "Cataloged item"
+              type: "array"
+              items:
+                type: "object"
+                additionalProperties: false
+                properties:
+                  typeCode:
+                    example: "Planter"
+                    type: "string"
+                    format: "token"
+                  productName:
+                    example: "5670"
+                    type: "string"
+                  brandName:
+                    example: "Kinze"
+                    type: "string"
+        containerState:
+          type: "array"
+          items:
+            type: "object"
+            additionalProperties: false
+            properties:
+              typeCode:
+                description: "Capacity | Maintenance"
+                example: "Capacity"
+                type: "string"
+                format: "token"
+              status:
+                type: "object"
+                additionalProperties: false
+                properties:
+                  code:
+                    description: "EMPTY | PARTIALLY_FILLED | FULL"
+                    example: "EMPTY"
+                    type: "string"
+                    format: "normalizedString"
+                  reasonCode:
+                    example: ""
+                    type: "string"
+                    format: "normalizedString"
+                  reason:
+                    example: ""
+                    type: "string"
+                  effectiveTimePeriod:
+                    type: "object"
+                    additionalProperties: false
+                    properties:
+                      typeCode:
+                        example: "Epoch"
+                        type: "string"
+                        format: "token"
+                      startDateTime:
+                        example: ""
+                        type: "string"
+                      endDateTime:
+                        example: ""
+                        type: "string"
+                        format: "date-time"
+              currentMaximumCapacity:
+                description: "The maximum capacity at a given point in time due to\
+                  \ an external constraint, such as weather, transport route decision\
+                  \ (hills), etc."
+                type: "object"
+                additionalProperties: false
+                properties:
+                  reasonCode:
+                    description: "Specific code from an enumerated list (controlled\
+                      \ vocabulary) of codes classifying the reason of the maximum\
+                      \ capacity; e.g., COMPACTION | TRANSPORT_ROUTE"
+                    example: "COMPACTION"
+                    type: "string"
+                    format: "normalizedString"
+                  reason:
+                    description: "Full text description of the detailed reason."
+                    example: "Jeremy said so - higher moisture content."
+                    type: "string"
+                  effectiveTimePeriod:
+                    type: "object"
+                    additionalProperties: false
+                    properties:
+                      startDateTime:
+                        description: "Point in time the current maximum capacity went\
+                          \ into effect."
+                        example: "2023-07-23 11:34:01-05:00"
+                        type: "string"
+                        format: "date-time"
+                      endDateTime:
+                        description: "If empty string, this capacity is currently\
+                          \ the active max capacity, coinciding with statusIndicator=Active.\n\
+                          If populated with UTC timestamp this represents a point\
+                          \ in time the current maximum capacity is no longer in effect/\
+                          \ inactive, with statusIndicator=Inactive."
+                        example: ""
+                        type: "string"
+                        format: "date-time"
+                  statusIndicator:
+                    description: "Whether the current maximum capacity is in effect\
+                      \ at the point in time.  Active | Inactive "
+                    example: "Active"
+                    type: "string"
+                  currentDateTime:
+                    description: "The current point in time, represented as a UTC\
+                      \ timestamp typically from a now() function."
+                    example: "2023-08-01 11:34:01-05:00"
+                    type: "string"
+                    format: "date-time"
+                  maximumVolumeMeasure:
+                    description: "Maximum volume for the container currently specified\
+                      \ not to exceed, typically for logistical reasons."
+                    type: "object"
+                    required:
+                    - "content"
+                    additionalProperties: false
+                    properties:
+                      content:
+                        type: "number"
+                        example: "800"
+                      unitCode:
+                        example: "BU"
+                        type: "string"
+                        format: "token"
+                  maximumWeightMeasure:
+                    description: "Maximum weight for the container currently specified\
+                      \ not to exceed, typically for compaction or equipment reasons."
+                    type: "object"
+                    required:
+                    - "content"
+                    additionalProperties: false
+                    properties:
+                      content:
+                        type: "number"
+                        example: "48000"
+                      unitCode:
+                        example: "LBS"
+                        type: "string"
+                        format: "token"
+                  declaringParty:
+                    type: "object"
+                    additionalProperties: false
+                    properties:
+                      id:
+                        example: "972a57dc-c679-4c73-9c2c-f548a77a5f4b"
+                        type: "string"
+                        format: "normalizedString"
+                      name:
+                        description: "Name of party declaring the current maximum\
+                          \ capacity"
+                        example: "Jeremy"
+                        type: "string"
+              availableVolumeMeasure:
+                description: "Available volume at a specific point in time of the\
+                  \ operation.  Only populated when EMPTY or PARTIALLY_FILLED"
+                type: "object"
+                required:
+                - "content"
+                additionalProperties: false
+                properties:
+                  content:
+                    type: "number"
+                    example: "800"
+                  unitCode:
+                    example: "BSH"
+                    type: "string"
+                    format: "token"
+              availableWeightMeasure:
+                description: "Available weight at a specific point in time of the\
+                  \ operation. Only populated when EMPTY or PARTIALLY_FILLED"
+                type: "object"
+                required:
+                - "content"
+                additionalProperties: false
+                properties:
+                  content:
+                    type: "number"
+                    example: "48000"
+                  unitCode:
+                    example: "LB"
+                    type: "string"
+                    format: "token"
+              startMaterialVolumeMeasure:
+                description: "Only populated when EMPTY or PARTIALLY_FILLED"
+                type: "object"
+                required:
+                - "content"
+                additionalProperties: false
+                properties:
+                  content:
+                    type: "number"
+                    example: "0"
+                  unitCode:
+                    example: "BSH"
+                    type: "string"
+                    format: "token"
+              startMaterialWeightMeasure:
+                description: "Only populated when EMPTY or PARTIALLY_FILLED"
+                type: "object"
+                required:
+                - "content"
+                additionalProperties: false
+                properties:
+                  content:
+                    type: "number"
+                    example: "0"
+                  unitCode:
+                    example: "LB"
+                    type: "string"
+                    format: "token"
+              endMaterialVolumeMeasure:
+                description: "Only populated when PARTIALLY_FILLED or FULL"
+                type: "object"
+                required:
+                - "content"
+                additionalProperties: false
+                properties:
+                  content:
+                    type: "number"
+                    example: null
+                  unitCode:
+                    example: "BSH"
+                    type: "string"
+                    format: "token"
+              endMaterialWeightMeasure:
+                description: "Only populated when PARTIALLY_FILLED or FULL"
+                type: "object"
+                required:
+                - "content"
+                additionalProperties: false
+                properties:
+                  content:
+                    type: "number"
+                    example: null
+                  unitCode:
+                    example: "LB"
+                    type: "string"
+                    format: "token"
     deviceResource:
       x-oagis-bie-guid: "1605fba011964baf9059b75994ace48f"
       x-oagis-bie-date-time: "2024-06-03T02:24:14+0000"
@@ -677,341 +1055,6 @@ components:
           example: "Equipment"
           type: "string"
           format: "normalizedString"
-    container:
-      x-oagis-bie-guid: "2d592835eab94477b47335b077666bba"
-      x-oagis-bie-date-time: "2024-06-03T18:14:29+0000"
-      x-oagis-bie-version: "V1"
-      x-oagis-bie-den: "Container"
-      x-oagis-bie-uri: "https://oagiscore.net/profile_bie/940"
-      x-oagis-release: "10.11"
-      x-oagis-release-date: "2024-05-10"
-      type: "object"
-      additionalProperties: false
-      properties:
-        typeCode:
-          example: "Planter_Box"
-          type: "string"
-          format: "token"
-        id:
-          example: "1"
-          type: "string"
-          format: "normalizedString"
-        uuid:
-          example: "2b4847dd-a745-43dd-b1dd-0af3c6ba9de2"
-          type: "string"
-          format: "normalizedString"
-        sourceId:
-          example: "Data Platform"
-          type: "string"
-          format: "normalizedString"
-        partyId:
-          example: "RetailerA"
-          type: "string"
-          format: "normalizedString"
-        relatedId:
-          type: "array"
-          items:
-            type: "object"
-            additionalProperties: false
-            properties:
-              id:
-                example: ""
-                type: "string"
-                format: "normalizedString"
-              uuid:
-                example: ""
-                type: "string"
-                format: "normalizedString"
-              sourceId:
-                example: ""
-                type: "string"
-                format: "normalizedString"
-              partyId:
-                example: ""
-                type: "string"
-                format: "normalizedString"
-        description:
-          example: "Planter Bin 1 on Kinze"
-          type: "string"
-        containerGroupId:
-          type: "object"
-          required:
-          - "content"
-          additionalProperties: false
-          properties:
-            content:
-              type: "string"
-              format: "normalizedString"
-              example: "1"
-            typeCode:
-              example: "Section"
-              type: "string"
-              format: "token"
-        capacity:
-          type: "object"
-          additionalProperties: false
-          properties:
-            typeCode:
-              example: "Specified"
-              type: "string"
-              format: "token"
-            maximumVolumeMeasure:
-              type: "object"
-              required:
-              - "content"
-              additionalProperties: false
-              properties:
-                content:
-                  type: "number"
-                  example: "950"
-                unitCode:
-                  example: "BU"
-                  type: "string"
-                  format: "token"
-            maximumWeightMeasure:
-              type: "object"
-              required:
-              - "content"
-              additionalProperties: false
-              properties:
-                content:
-                  type: "number"
-                  example: "53200"
-                unitCode:
-                  example: "LBS"
-                  type: "string"
-                  format: "token"
-        deviceResource:
-          type: "object"
-          additionalProperties: false
-          properties:
-            uuid:
-              example: "570612be-db3b-4a76-944c-c11f3fb5bed8"
-              type: "string"
-              format: "normalizedString"
-            deviceItem:
-              type: "array"
-              items:
-                type: "object"
-                additionalProperties: false
-                properties:
-                  typeCode:
-                    example: "Planter"
-                    type: "string"
-                    format: "token"
-                  productName:
-                    example: "5670"
-                    type: "string"
-                  brandName:
-                    example: "Kinze"
-                    type: "string"
-        containerState:
-          type: "array"
-          items:
-            type: "object"
-            additionalProperties: false
-            properties:
-              typeCode:
-                example: "Capacity"
-                type: "string"
-                format: "token"
-              status:
-                type: "object"
-                additionalProperties: false
-                properties:
-                  code:
-                    example: "EMPTY"
-                    type: "string"
-                    format: "normalizedString"
-                  reasonCode:
-                    example: ""
-                    type: "string"
-                    format: "normalizedString"
-                  reason:
-                    example: ""
-                    type: "string"
-                  effectiveTimePeriod:
-                    type: "object"
-                    additionalProperties: false
-                    properties:
-                      typeCode:
-                        example: "Epoch"
-                        type: "string"
-                        format: "token"
-                      startDateTime:
-                        example: ""
-                        type: "string"
-                      endDateTime:
-                        example: ""
-                        type: "string"
-                        format: "date-time"
-              currentMaximumCapacity:
-                type: "object"
-                additionalProperties: false
-                properties:
-                  reasonCode:
-                    example: "COMPACTION"
-                    type: "string"
-                    format: "normalizedString"
-                  reason:
-                    example: "Jeremy said so - higher moisture content."
-                    type: "string"
-                  effectiveTimePeriod:
-                    type: "object"
-                    additionalProperties: false
-                    properties:
-                      startDateTime:
-                        example: "2023-07-23 11:34:01-05:00"
-                        type: "string"
-                        format: "date-time"
-                      endDateTime:
-                        example: ""
-                        type: "string"
-                        format: "date-time"
-                  statusIndicator:
-                    example: "Active"
-                    type: "string"
-                  currentDateTime:
-                    example: "2023-08-01 11:34:01-05:00"
-                    type: "string"
-                    format: "date-time"
-                  maximumVolumeMeasure:
-                    type: "object"
-                    required:
-                    - "content"
-                    additionalProperties: false
-                    properties:
-                      content:
-                        type: "number"
-                        example: "800"
-                      unitCode:
-                        example: "BU"
-                        type: "string"
-                        format: "token"
-                  maximumWeightMeasure:
-                    type: "object"
-                    required:
-                    - "content"
-                    additionalProperties: false
-                    properties:
-                      content:
-                        type: "number"
-                        example: "48000"
-                      unitCode:
-                        example: "LBS"
-                        type: "string"
-                        format: "token"
-                  declaringParty:
-                    type: "object"
-                    additionalProperties: false
-                    properties:
-                      id:
-                        example: "972a57dc-c679-4c73-9c2c-f548a77a5f4b"
-                        type: "string"
-                        format: "normalizedString"
-                      name:
-                        example: "Jeremy"
-                        type: "string"
-              availableVolumeMeasure:
-                type: "object"
-                required:
-                - "content"
-                additionalProperties: false
-                properties:
-                  content:
-                    type: "number"
-                    example: "800"
-                  unitCode:
-                    example: "BSH"
-                    type: "string"
-                    format: "token"
-              availableWeightMeasure:
-                type: "object"
-                required:
-                - "content"
-                additionalProperties: false
-                properties:
-                  content:
-                    type: "number"
-                    example: "48000"
-                  unitCode:
-                    example: "LB"
-                    type: "string"
-                    format: "token"
-              startMaterialVolumeMeasure:
-                type: "object"
-                required:
-                - "content"
-                additionalProperties: false
-                properties:
-                  content:
-                    type: "number"
-                    example: "0"
-                  unitCode:
-                    example: "BSH"
-                    type: "string"
-                    format: "token"
-              startMaterialWeightMeasure:
-                type: "object"
-                required:
-                - "content"
-                additionalProperties: false
-                properties:
-                  content:
-                    type: "number"
-                    example: "0"
-                  unitCode:
-                    example: "LB"
-                    type: "string"
-                    format: "token"
-              endMaterialVolumeMeasure:
-                type: "object"
-                required:
-                - "content"
-                additionalProperties: false
-                properties:
-                  content:
-                    type: "number"
-                    example: null
-                  unitCode:
-                    example: "BSH"
-                    type: "string"
-                    format: "token"
-              endMaterialWeightMeasure:
-                type: "object"
-                required:
-                - "content"
-                additionalProperties: false
-                properties:
-                  content:
-                    type: "number"
-                    example: null
-                  unitCode:
-                    example: "LB"
-                    type: "string"
-                    format: "token"
-    status:
-      x-oagis-bie-guid: "491483e86fc24d4d82f421fcfc1b6e93"
-      x-oagis-bie-date-time: "2024-06-03T03:06:07+0000"
-      x-oagis-bie-version: "V1"
-      x-oagis-bie-den: "Status"
-      x-oagis-bie-uri: "https://oagiscore.net/profile_bie/936"
-      x-oagis-release: "10.11"
-      x-oagis-release-date: "2024-05-10"
-      type: "object"
-      additionalProperties: false
-      properties:
-        code:
-          example: "Started"
-          type: "string"
-          format: "normalizedString"
-        reasonCode:
-          example: ""
-          type: "string"
-          format: "normalizedString"
-        reason:
-          example: ""
-          type: "string"
     criticalTrackingEventRequestCreate:
       x-oagis-bie-guid: "4c57aa340d2b491da3021e3682dc3eb5"
       x-oagis-bie-date-time: "2024-06-05T02:37:20+0000"
@@ -1021,6 +1064,7 @@ components:
       x-oagis-release: "10.11"
       x-oagis-release-date: "2024-05-10"
       type: "object"
+      description: "Supports the creation of a CTE."
       additionalProperties: false
       properties:
         criticalTrackingEventType:
@@ -1028,6 +1072,7 @@ components:
           type: "string"
           format: "normalizedString"
         processCategory:
+          description: "Category of the process which multiple field operations occur"
           type: "object"
           additionalProperties: false
           properties:
@@ -1103,6 +1148,7 @@ components:
             additionalProperties: false
             properties:
               typeCode:
+                description: "Source | Target"
                 example: "Source"
                 type: "string"
                 format: "token"
@@ -1238,14 +1284,18 @@ components:
                         type: "string"
                         format: "date-time"
               container:
+                description: "Container use at the time the TRU was active"
                 type: "object"
                 additionalProperties: false
                 properties:
                   typeCode:
+                    description: "Based on the AgGateway Agrisemantics Container-Type\
+                      \ enumeration. Issue 101 from ADAPT."
                     example: "Planter_Box"
                     type: "string"
                     format: "token"
                   id:
+                    description: "Systematic identifier "
                     example: "1"
                     type: "string"
                     format: "normalizedString"
@@ -1284,6 +1334,8 @@ components:
                           type: "string"
                           format: "normalizedString"
                   description:
+                    description: "Description of the container, for display purposes\
+                      \ in a UI."
                     example: "Planter Bin 1 on Kinze"
                     type: "string"
                   containerGroupId:
@@ -1301,6 +1353,7 @@ components:
                         type: "string"
                         format: "token"
                   capacity:
+                    description: "OEM specification of capacity."
                     type: "object"
                     additionalProperties: false
                     properties:
@@ -1309,6 +1362,7 @@ components:
                         type: "string"
                         format: "token"
                       maximumVolumeMeasure:
+                        description: "OEM specified maximum volume for the container."
                         type: "object"
                         required:
                         - "content"
@@ -1322,6 +1376,7 @@ components:
                             type: "string"
                             format: "token"
                       maximumWeightMeasure:
+                        description: "OEM specified maximum weight for the container."
                         type: "object"
                         required:
                         - "content"
@@ -1343,6 +1398,7 @@ components:
                         type: "string"
                         format: "normalizedString"
                       deviceItem:
+                        description: "Cataloged item"
                         type: "array"
                         items:
                           type: "object"
@@ -1365,6 +1421,7 @@ components:
                       additionalProperties: false
                       properties:
                         typeCode:
+                          description: "Capacity | Maintenance"
                           example: "Capacity"
                           type: "string"
                           format: "token"
@@ -1373,6 +1430,7 @@ components:
                           additionalProperties: false
                           properties:
                             code:
+                              description: "EMPTY | PARTIALLY_FILLED | FULL"
                               example: "FULL"
                               type: "string"
                               format: "normalizedString"
@@ -1395,6 +1453,8 @@ components:
                                   example: ""
                                   type: "string"
                         availableVolumeMeasure:
+                          description: "Available volume at a specific point in time\
+                            \ of the operation.  Only populated when EMPTY or PARTIALLY_FILLED"
                           type: "object"
                           required:
                           - "content"
@@ -1408,6 +1468,8 @@ components:
                               type: "string"
                               format: "token"
                         availableWeightMeasure:
+                          description: "Available weight at a specific point in time\
+                            \ of the operation. Only populated when EMPTY or PARTIALLY_FILLED"
                           type: "object"
                           required:
                           - "content"
@@ -1421,6 +1483,7 @@ components:
                               type: "string"
                               format: "token"
                         startMaterialVolumeMeasure:
+                          description: "Only populated when EMPTY or PARTIALLY_FILLED"
                           type: "object"
                           required:
                           - "content"
@@ -1434,6 +1497,7 @@ components:
                               type: "string"
                               format: "token"
                         startMaterialWeightMeasure:
+                          description: "Only populated when EMPTY or PARTIALLY_FILLED"
                           type: "object"
                           required:
                           - "content"
@@ -1491,6 +1555,7 @@ components:
                   type: "string"
                   format: "date-time"
         operatorParty:
+          description: "Operator of the planter"
           type: "array"
           items:
             type: "object"
@@ -1508,6 +1573,7 @@ components:
                 example: ""
                 type: "string"
         publisherParty:
+          description: "OEM platform publishing the dataset, CTE and TRU"
           type: "array"
           items:
             type: "object"
@@ -1525,6 +1591,8 @@ components:
                 example: ""
                 type: "string"
         relatedDatasetMetadataReference:
+          description: "Reference to one or more processed datasets that the CTE was\
+            \ discovered."
           type: "array"
           items:
             type: "object"
@@ -1588,6 +1656,7 @@ components:
           type: "string"
           format: "normalizedString"
         processCategory:
+          description: "Category of the process which multiple field operations occur"
           type: "object"
           additionalProperties: false
           properties:
@@ -1666,6 +1735,7 @@ components:
             additionalProperties: false
             properties:
               typeCode:
+                description: "Source | Target"
                 example: "Source"
                 type: "string"
                 format: "token"
@@ -1870,6 +1940,7 @@ components:
                   type: "string"
                   format: "date-time"
         operatorParty:
+          description: "Operator of the planter"
           type: "array"
           items:
             type: "object"
@@ -1887,6 +1958,7 @@ components:
                 example: ""
                 type: "string"
         publisherParty:
+          description: "OEM platform publishing the dataset, CTE and TRU"
           type: "array"
           items:
             type: "object"
@@ -1904,6 +1976,8 @@ components:
                 example: ""
                 type: "string"
         relatedDatasetMetadataReference:
+          description: "Reference to one or more processed datasets that the CTE was\
+            \ discovered."
           type: "array"
           items:
             type: "object"
@@ -1975,6 +2049,7 @@ components:
           type: "string"
           format: "normalizedString"
         processCategory:
+          description: "Category of the process which multiple field operations occur"
           type: "object"
           additionalProperties: false
           properties:
@@ -2053,6 +2128,7 @@ components:
             additionalProperties: false
             properties:
               typeCode:
+                description: "Source | Target"
                 example: "Source"
                 type: "string"
                 format: "token"
@@ -2257,6 +2333,7 @@ components:
                   type: "string"
                   format: "date-time"
         operatorParty:
+          description: "Operator of the planter"
           type: "array"
           items:
             type: "object"
@@ -2274,6 +2351,7 @@ components:
                 example: ""
                 type: "string"
         publisherParty:
+          description: "OEM platform publishing the dataset, CTE and TRU"
           type: "array"
           items:
             type: "object"
@@ -2291,6 +2369,8 @@ components:
                 example: ""
                 type: "string"
         relatedDatasetMetadataReference:
+          description: "Reference to one or more processed datasets that the CTE was\
+            \ discovered."
           type: "array"
           items:
             type: "object"
@@ -2335,6 +2415,7 @@ components:
       x-oagis-release: "10.11"
       x-oagis-release-date: "2024-05-10"
       type: "object"
+      description: "Supports the Update of a CTE."
       additionalProperties: false
       properties:
         timePeriod:
@@ -2369,7 +2450,7 @@ components:
               example: "Back 40"
               type: "string"
             formatCode:
-              example: "WKT"
+              example: "GeoJSON"
               type: "string"
               format: "token"
             value:
@@ -2405,6 +2486,7 @@ components:
             additionalProperties: false
             properties:
               typeCode:
+                description: "Source | Target"
                 example: "Source"
                 type: "string"
                 format: "token"
@@ -2524,6 +2606,7 @@ components:
                 additionalProperties: false
                 properties:
                   code:
+                    description: "ACTIVE | COMPLETED"
                     example: "ACTIVE"
                     type: "string"
                     format: "normalizedString"
@@ -2536,10 +2619,12 @@ components:
                         type: "string"
                         format: "date-time"
               container:
+                description: "Container use at the time the TRU was active"
                 type: "object"
                 additionalProperties: false
                 properties:
                   id:
+                    description: "Systematic identifier "
                     example: "1"
                     type: "string"
                     format: "normalizedString"
@@ -2588,6 +2673,7 @@ components:
                           additionalProperties: false
                           properties:
                             code:
+                              description: "EMPTY | PARTIALLY_FILLED | FULL"
                               example: "EMPTY"
                               type: "string"
                               format: "normalizedString"
@@ -2611,15 +2697,21 @@ components:
                                   type: "string"
                                   format: "date-time"
                         availableVolumeMeasure:
+                          description: "Available volume at a specific point in time\
+                            \ of the operation.  Only populated when EMPTY or PARTIALLY_FILLED"
                           example: "800"
                           type: "number"
                         availableWeightMeasure:
+                          description: "Available weight at a specific point in time\
+                            \ of the operation. Only populated when EMPTY or PARTIALLY_FILLED"
                           example: "48000"
                           type: "number"
                         endMaterialVolumeMeasure:
+                          description: "Only populated when PARTIALLY_FILLED or FULL"
                           example: null
                           type: "number"
                         endMaterialWeightMeasure:
+                          description: "Only populated when PARTIALLY_FILLED or FULL"
                           example: null
                           type: "number"
         keyDataElement:
@@ -2648,6 +2740,7 @@ components:
                 example: "Retailer Shipment Identifier"
                 type: "string"
         publisherParty:
+          description: "OEM platform publishing the dataset, CTE and TRU"
           type: "array"
           items:
             type: "object"
@@ -2665,6 +2758,8 @@ components:
                 example: ""
                 type: "string"
         relatedDatasetMetadataReference:
+          description: "Reference to one or more processed datasets that the CTE was\
+            \ discovered."
           type: "array"
           items:
             type: "object"
@@ -2693,6 +2788,7 @@ components:
                 type: "string"
                 format: "normalizedString"
               relatedId:
+                description: "Related Ids for the work records"
                 type: "array"
                 items:
                   type: "object"
@@ -2735,12 +2831,17 @@ components:
       x-oagis-release: "10.11"
       x-oagis-release-date: "2024-05-10"
       type: "object"
+      description: "Allows the creation of the Operation to begin the field work order,\
+        \ referenced in the transfer event CTE."
       additionalProperties: false
       properties:
         description:
+          description: "Description of the operation."
           example: "Fill the Planter bins on the planter "
           type: "string"
         typeCode:
+          description: "Type of operation: \nfill | planting | mix | application |\
+            \ harvest"
           example: "Fill"
           type: "string"
           format: "token"
@@ -2751,10 +2852,12 @@ components:
           additionalProperties: false
           properties:
             startDateTime:
+              description: "Time the operation started"
               example: "2024-04-15T09:11:05-05:00"
               type: "string"
               format: "date-time"
             endDateTime:
+              description: "Time the operation ended"
               example: ""
               type: "string"
               format: "date-time"
@@ -2772,10 +2875,14 @@ components:
                 type: "number"
                 example: "38,000"
               typeCode:
+                description: "Reference\n\"definitionCode\": \"AppliedCountPerAreaActual\"\
+                  \ -> typeCode\nhttps://github.com/ADAPT/Standard/blob/main/adapt-data-type-definitions.json"
                 example: "AppliedCountPerAreaTarget"
                 type: "string"
                 format: "token"
               unitCode:
+                description: "Reference\n\"unitOfMeasureCode\": \"count1ha-1\" \n\
+                  https://github.com/ADAPT/Standard/blob/main/adapt-data-type-definitions.json"
                 example: "count1ha-1"
                 type: "string"
                 format: "token"
@@ -2788,6 +2895,8 @@ components:
       x-oagis-release: "10.11"
       x-oagis-release-date: "2024-05-10"
       type: "object"
+      description: "Allows the creation of the Operation to begin the field work order,\
+        \ referenced in the transfer event CTE."
       additionalProperties: false
       properties:
         id:
@@ -2799,9 +2908,12 @@ components:
           type: "string"
           format: "normalizedString"
         description:
+          description: "Description of the operation."
           example: "Fill the Planter bins on the planter "
           type: "string"
         typeCode:
+          description: "Type of operation: \nfill | planting | mix | application |\
+            \ harvest"
           example: "Fill"
           type: "string"
           format: "token"
@@ -2812,6 +2924,7 @@ components:
           additionalProperties: false
           properties:
             startDateTime:
+              description: "Time the operation started"
               example: "2024-04-15T09:11:05-05:00"
               type: "string"
               format: "date-time"
@@ -2829,10 +2942,14 @@ components:
                 type: "number"
                 example: "38000"
               typeCode:
+                description: "Reference\n\"definitionCode\": \"AppliedCountPerAreaTarget\"\
+                  \ -> typeCode\nhttps://github.com/ADAPT/Standard/blob/main/adapt-data-type-definitions.json"
                 example: "AppliedCountPerAreaTarget"
                 type: "string"
                 format: "token"
               unitCode:
+                description: "Reference\n\"unitOfMeasureCode\": \"count1ha-1\" \n\
+                  https://github.com/ADAPT/Standard/blob/main/adapt-data-type-definitions."
                 example: "count1ha-1"
                 type: "string"
                 format: "token"
@@ -2867,13 +2984,17 @@ components:
       x-oagis-release: "10.11"
       x-oagis-release-date: "2024-05-10"
       type: "object"
+      description: "Container used at a specific point in time."
       additionalProperties: false
       properties:
         typeCode:
+          description: "Based on the AgGateway Agrisemantics Container-Type enumeration.\
+            \ Issue 101 from ADAPT."
           example: "Planter_Box"
           type: "string"
           format: "token"
         id:
+          description: "Systematic identifier "
           example: "1"
           type: "string"
           format: "normalizedString"
@@ -2912,6 +3033,7 @@ components:
                 type: "string"
                 format: "normalizedString"
         description:
+          description: "Description of the container, for display purposes in a UI."
           example: "Planter Bin 1 on Kinze"
           type: "string"
         containerGroupId:
@@ -2929,6 +3051,7 @@ components:
               type: "string"
               format: "token"
         capacity:
+          description: "OEM specification of capacity."
           type: "object"
           additionalProperties: false
           properties:
@@ -2937,6 +3060,7 @@ components:
               type: "string"
               format: "token"
             maximumVolumeMeasure:
+              description: "OEM specified maximum volume for the container."
               type: "object"
               required:
               - "content"
@@ -2950,6 +3074,7 @@ components:
                   type: "string"
                   format: "token"
             maximumWeightMeasure:
+              description: "OEM specified maximum weight for the container."
               type: "object"
               required:
               - "content"
@@ -2971,6 +3096,7 @@ components:
               type: "string"
               format: "normalizedString"
             deviceItem:
+              description: "Cataloged item"
               type: "array"
               items:
                 type: "object"
@@ -2993,6 +3119,7 @@ components:
             additionalProperties: false
             properties:
               typeCode:
+                description: "Capacity | Maintenance"
                 example: "Capacity"
                 type: "string"
                 format: "token"
@@ -3001,6 +3128,7 @@ components:
                 additionalProperties: false
                 properties:
                   code:
+                    description: "EMPTY | PARTIALLY_FILLED | FULL"
                     example: "EMPTY"
                     type: "string"
                     format: "normalizedString"
@@ -3027,14 +3155,21 @@ components:
                         type: "string"
                         format: "date-time"
               currentMaximumCapacity:
+                description: "The maximum capacity at a given point in time due to\
+                  \ an external constraint, such as weather, transport route decision\
+                  \ (hills), etc."
                 type: "object"
                 additionalProperties: false
                 properties:
                   reasonCode:
+                    description: "Specific code from an enumerated list (controlled\
+                      \ vocabulary) of codes classifying the reason of the maximum\
+                      \ capacity; e.g., COMPACTION | TRANSPORT_ROUTE"
                     example: "COMPACTION"
                     type: "string"
                     format: "normalizedString"
                   reason:
+                    description: "Full text description of the detailed reason."
                     example: "Jeremy said so - higher moisture content."
                     type: "string"
                   effectiveTimePeriod:
@@ -3042,21 +3177,34 @@ components:
                     additionalProperties: false
                     properties:
                       startDateTime:
+                        description: "Point in time the current maximum capacity went\
+                          \ into effect."
                         example: "2023-07-23 11:34:01-05:00"
                         type: "string"
                         format: "date-time"
                       endDateTime:
+                        description: "If empty string, this capacity is currently\
+                          \ the active max capacity, coinciding with statusIndicator=Active.\n\
+                          If populated with UTC timestamp this represents a point\
+                          \ in time the current maximum capacity is no longer in effect/\
+                          \ inactive, with statusIndicator=Inactive."
                         example: ""
                         type: "string"
                         format: "date-time"
                   statusIndicator:
+                    description: "Whether the current maximum capacity is in effect\
+                      \ at the point in time.  Active | Inactive "
                     example: "Active"
                     type: "string"
                   currentDateTime:
+                    description: "The current point in time, represented as a UTC\
+                      \ timestamp typically from a now() function."
                     example: "2023-08-01 11:34:01-05:00"
                     type: "string"
                     format: "date-time"
                   maximumVolumeMeasure:
+                    description: "Maximum volume for the container currently specified\
+                      \ not to exceed, typically for logistical reasons."
                     type: "object"
                     required:
                     - "content"
@@ -3070,6 +3218,8 @@ components:
                         type: "string"
                         format: "token"
                   maximumWeightMeasure:
+                    description: "Maximum weight for the container currently specified\
+                      \ not to exceed, typically for compaction or equipment reasons."
                     type: "object"
                     required:
                     - "content"
@@ -3091,9 +3241,13 @@ components:
                         type: "string"
                         format: "normalizedString"
                       name:
+                        description: "Name of party declaring the current maximum\
+                          \ capacity"
                         example: "Jeremy"
                         type: "string"
               availableVolumeMeasure:
+                description: "Available volume at a specific point in time of the\
+                  \ operation.  Only populated when EMPTY or PARTIALLY_FILLED"
                 type: "object"
                 required:
                 - "content"
@@ -3107,6 +3261,8 @@ components:
                     type: "string"
                     format: "token"
               availableWeightMeasure:
+                description: "Available weight at a specific point in time of the\
+                  \ operation. Only populated when EMPTY or PARTIALLY_FILLED"
                 type: "object"
                 required:
                 - "content"
@@ -3120,6 +3276,7 @@ components:
                     type: "string"
                     format: "token"
               startMaterialVolumeMeasure:
+                description: "Only populated when EMPTY or PARTIALLY_FILLED"
                 type: "object"
                 required:
                 - "content"
@@ -3133,6 +3290,7 @@ components:
                     type: "string"
                     format: "token"
               startMaterialWeightMeasure:
+                description: "Only populated when EMPTY or PARTIALLY_FILLED"
                 type: "object"
                 required:
                 - "content"
@@ -3146,6 +3304,7 @@ components:
                     type: "string"
                     format: "token"
               endMaterialVolumeMeasure:
+                description: "Only populated when PARTIALLY_FILLED or FULL"
                 type: "object"
                 required:
                 - "content"
@@ -3159,6 +3318,7 @@ components:
                     type: "string"
                     format: "token"
               endMaterialWeightMeasure:
+                description: "Only populated when PARTIALLY_FILLED or FULL"
                 type: "object"
                 required:
                 - "content"
@@ -3184,13 +3344,18 @@ components:
       x-oagis-release: "10.11"
       x-oagis-release-date: "2024-05-10"
       type: "object"
+      description: "Container used at a specific point in time."
       additionalProperties: false
       properties:
         typeCode:
+          description: "Based on the AgGateway Agrisemantics Container-Type enumeration.\
+            \ Issue 101 from ADAPT; planter-bin, shipping-unit, bulk-box, tote, bag,\
+            \ semi-trailer"
           example: "planter-bin"
           type: "string"
           format: "token"
         id:
+          description: "Systematic identifier "
           example: "1"
           type: "string"
           format: "normalizedString"
@@ -3207,6 +3372,7 @@ components:
           type: "string"
           format: "normalizedString"
         description:
+          description: "Description of the container, for display purposes in a UI."
           example: "Planter Bin 1 on Kinze"
           type: "string"
         containerGroupId:
@@ -3230,10 +3396,13 @@ components:
             additionalProperties: false
             properties:
               uuid:
+                description: "UUID identifier for the device the container is part\
+                  \ of"
                 example: "570612be-db3b-4a76-944c-c11f3fb5bed8"
                 type: "string"
                 format: "normalizedString"
               deviceItem:
+                description: "Cataloged item"
                 type: "object"
                 additionalProperties: false
                 properties:
@@ -3252,6 +3421,7 @@ components:
           additionalProperties: false
           properties:
             typeCode:
+              description: "Capacity | Maintenance"
               example: "Capacity"
               type: "string"
               format: "token"
@@ -3260,6 +3430,7 @@ components:
               additionalProperties: false
               properties:
                 code:
+                  description: "EMPTY | PARTIALLY_FILLED | FULL"
                   example: "EMPTY"
                   type: "string"
                   format: "normalizedString"
@@ -3271,6 +3442,8 @@ components:
                   example: ""
                   type: "string"
             availableVolumeMeasure:
+              description: "Available volume at a specific point in time of the operation.\
+                \  Only populated when EMPTY or PARTIALLY_FILLED"
               type: "object"
               required:
               - "content"
@@ -3284,6 +3457,8 @@ components:
                   type: "string"
                   format: "token"
             availableWeightMeasure:
+              description: "Available weight at a specific point in time of the operation.\
+                \ Only populated when EMPTY or PARTIALLY_FILLED"
               type: "object"
               required:
               - "content"
@@ -3297,6 +3472,7 @@ components:
                   type: "string"
                   format: "token"
             startMaterialVolumeMeasure:
+              description: "Only populated when EMPTY or PARTIALLY_FILLED"
               type: "object"
               required:
               - "content"
@@ -3310,6 +3486,7 @@ components:
                   type: "string"
                   format: "token"
             startMaterialWeightMeasure:
+              description: "Only populated when EMPTY or PARTIALLY_FILLED"
               type: "object"
               required:
               - "content"
@@ -3354,6 +3531,7 @@ components:
           type: "string"
           format: "normalizedString"
         relatedId:
+          description: "Other related identifiers for the same field"
           type: "array"
           items:
             type: "object"
@@ -3390,8 +3568,8 @@ components:
           type: "string"
           format: "token"
         value:
-          example: "MULTIPOLYGON (((1 1, 1 3, 3 3, 3 1, 1 1)), ((4 3, 6 3, 6 1,\
-                \ 4 1, 4 3)))"
+          example: "MULTIPOLYGON (((1 1, 1 3, 3 3, 3 1, 1 1)), ((4 3, 6 3, 6 1, 4\
+            \ 1, 4 3)))"
           type: "string"
         uri:
           example: "https://api.oemplatform.com/field/e3a8aec7-f2a2-4cb3-a5c7-02358c588002"
@@ -3447,13 +3625,15 @@ components:
           type: "string"
           format: "normalizedString"
         name:
+          description: "Field Name"
           example: "Back 40"
           type: "string"
         description:
+          description: "Detailed description of the field"
           example: "Back 40"
           type: "string"
         formatCode:
-          example: "WKT"
+          example: "GeoJSON"
           type: "string"
           format: "token"
         uri:
@@ -3469,6 +3649,8 @@ components:
       x-oagis-release: "10.11"
       x-oagis-release-date: "2024-05-10"
       type: "object"
+      description: "Allows the creation of the Operation to begin the field work order,\
+        \ referenced in the transfer event CTE."
       additionalProperties: false
       properties:
         id:
@@ -3486,6 +3668,7 @@ components:
           additionalProperties: false
           properties:
             endDateTime:
+              description: "Time the operation ended"
               example: "2024-04-15T10:11:05-05:00"
               type: "string"
               format: "date-time"
@@ -3501,10 +3684,14 @@ components:
                 type: "number"
                 example: "38152.25"
               typeCode:
+                description: "Reference\n\"definitionCode\": \"AppliedCountPerAreaTarget\"\
+                  \ -> typeCode\nhttps://github.com/ADAPT/Standard/blob/main/adapt-data-type-definitions.json"
                 example: "AppliedCountPerAreaActual"
                 type: "string"
                 format: "token"
               unitCode:
+                description: "Reference\n\"unitOfMeasureCode\": \"count1ha-1\" \n\
+                  https://github.com/ADAPT/Standard/blob/main/adapt-data-type-definitions."
                 example: ""
                 type: "string"
                 format: "token"
@@ -3517,6 +3704,8 @@ components:
       x-oagis-release: "10.11"
       x-oagis-release-date: "2024-05-10"
       type: "object"
+      description: "Allows the creation of the Operation to begin the field work order,\
+        \ referenced in the transfer event CTE."
       additionalProperties: false
       properties:
         id:
@@ -3528,6 +3717,7 @@ components:
           type: "string"
           format: "normalizedString"
         description:
+          description: "Description of the operation."
           example: "Fill the Planter bins on the planter "
           type: "string"
         status:
@@ -3537,10 +3727,12 @@ components:
           additionalProperties: false
           properties:
             startDateTime:
+              description: "Time the operation started"
               example: "2024-04-15T09:11:05-05:00"
               type: "string"
               format: "date-time"
             endDateTime:
+              description: "Time the operation ended"
               example: "2024-04-15T10:11:05-05:00"
               type: "string"
               format: "date-time"
@@ -3558,10 +3750,14 @@ components:
                 type: "number"
                 example: "38152.25"
               typeCode:
+                description: "Reference\n\"definitionCode\": \"AppliedCountPerAreaTarget\"\
+                  \ -> typeCode\nhttps://github.com/ADAPT/Standard/blob/main/adapt-data-type-definitions.json"
                 example: "AppliedCountPerAreaActual"
                 type: "string"
                 format: "token"
               unitCode:
+                description: "Reference\n\"unitOfMeasureCode\": \"count1ha-1\" \n\
+                  https://github.com/ADAPT/Standard/blob/main/adapt-data-type-definitions."
                 example: ""
                 type: "string"
                 format: "token"
@@ -3629,6 +3825,8 @@ components:
                     type: "string"
                     format: "date-time"
         cteId:
+          description: "The CTE the TRU is part of;  at times may need to be PATCHed\
+            \ in, depending on the implementation."
           example: ""
           type: "string"
           format: "normalizedString"
@@ -3825,6 +4023,8 @@ components:
                     type: "string"
                     format: "date-time"
         cteId:
+          description: "The CTE the TRU is part of;  at times may need to be PATCHed\
+            \ in, depending on the implementation."
           example: ""
           type: "string"
           format: "normalizedString"
@@ -4016,10 +4216,6 @@ components:
                     example: "2024-05-21 08:54:12.3434-05:00"
                     type: "string"
                     format: "date-time"
-        cteId:
-          example: ""
-          type: "string"
-          format: "normalizedString"
         itemInstance:
           type: "array"
           minItems: 1
@@ -4120,6 +4316,10 @@ components:
           additionalProperties: false
           properties:
             code:
+              description: "TRU status.code enum ::= Active | Depleted, where Active\
+                \ is has current quantity associated to a container and Depleted where\
+                \ the quantity is reduced to zero.  Any remaining amount is still\
+                \ active.  "
               example: "Active"
               type: "string"
               format: "normalizedString"
@@ -4150,6 +4350,10 @@ components:
       x-oagis-release: "10.11"
       x-oagis-release-date: "2024-05-10"
       type: "object"
+      description: "GET TRU list allows search by item GTIN, product, variety, lot.id,\
+        \ item treatment, status.code, and container.id.  If searched by Item information,\
+        \ only the queried item is returned in the list, although other items may\
+        \ have been part of the TRU."
       required:
       - "itemInstance"
       - "status"
@@ -4157,6 +4361,7 @@ components:
       additionalProperties: false
       properties:
         typeCode:
+          description: "Source | Target"
           example: "Source"
           type: "string"
           format: "token"
@@ -4250,14 +4455,18 @@ components:
                   type: "string"
                   format: "date-time"
         container:
+          description: "Container use at the time the TRU was active"
           type: "object"
           additionalProperties: false
           properties:
             typeCode:
+              description: "Based on the AgGateway Agrisemantics Container-Type enumeration.\
+                \ Issue 101 from ADAPT."
               example: "Planter_Box"
               type: "string"
               format: "token"
             id:
+              description: "Systematic identifier "
               example: "1"
               type: "string"
               format: "normalizedString"
@@ -4266,6 +4475,8 @@ components:
               type: "string"
               format: "normalizedString"
             description:
+              description: "Description of the container, for display purposes in\
+                \ a UI."
               example: "Kinze 940"
               type: "string"
     containerState:
@@ -4277,6 +4488,7 @@ components:
       x-oagis-release: "10.11"
       x-oagis-release-date: "2024-05-10"
       type: "object"
+      description: "The state of a container in the context of a refill operation."
       additionalProperties: false
       properties:
         status:
@@ -4284,6 +4496,7 @@ components:
           additionalProperties: false
           properties:
             code:
+              description: "EMPTY | PARTIALLY_FILLED | FULL"
               example: "FULL"
               type: "string"
               format: "normalizedString"
@@ -4307,6 +4520,8 @@ components:
                   type: "string"
                   format: "date-time"
         availableVolumeMeasure:
+          description: "Available volume at a specific point in time of the operation.\
+            \  Only populated when EMPTY or PARTIALLY_FILLED"
           type: "object"
           required:
           - "content"
@@ -4320,6 +4535,8 @@ components:
               type: "string"
               format: "token"
         availableWeightMeasure:
+          description: "Available weight at a specific point in time of the operation.\
+            \ Only populated when EMPTY or PARTIALLY_FILLED"
           type: "object"
           required:
           - "content"
@@ -4333,6 +4550,7 @@ components:
               type: "string"
               format: "token"
         endMaterialVolumeMeasure:
+          description: "Only populated when PARTIALLY_FILLED or FULL"
           type: "object"
           required:
           - "content"
@@ -4346,6 +4564,7 @@ components:
               type: "string"
               format: "token"
         endMaterialWeightMeasure:
+          description: "Only populated when PARTIALLY_FILLED or FULL"
           type: "object"
           required:
           - "content"
@@ -4408,6 +4627,8 @@ components:
                     type: "string"
                     format: "date-time"
         cteId:
+          description: "The CTE the TRU is part of;  at times may need to be PATCHed\
+            \ in, depending on the implementation."
           example: ""
           type: "string"
           format: "normalizedString"
@@ -4603,10 +4824,6 @@ components:
                     example: "2024-05-21 08:54:12.3434-05:00"
                     type: "string"
                     format: "date-time"
-        cteId:
-          example: ""
-          type: "string"
-          format: "normalizedString"
         itemInstance:
           type: "array"
           minItems: 1
@@ -4707,6 +4924,10 @@ components:
           additionalProperties: false
           properties:
             code:
+              description: "TRU status.code enum ::= Active | Depleted, where Active\
+                \ is has current quantity associated to a container and Depleted where\
+                \ the quantity is reduced to zero.  Any remaining amount is still\
+                \ active.  "
               example: "Active"
               type: "string"
               format: "normalizedString"
