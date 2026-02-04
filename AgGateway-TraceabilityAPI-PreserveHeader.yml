@@ -10,10 +10,10 @@ info:
   license:
     name: AgGateway API License
     url: https://legal.aggateway.org/terms-of-service
-  version: V1
+  version: V2
   x-oagis-license: ''
 paths:
-  /traceability/V1/critical-tracking-event:
+  /traceability/V2/critical-tracking-event:
     summary: ''
     description: ''
     post:
@@ -38,7 +38,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/criticalTrackingEventListEntry'
-  /traceability/V1/critical-tracking-event-list:
+  /traceability/V2/critical-tracking-event-list:
     summary: ''
     description: ''
     post:
@@ -125,7 +125,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/criticalTrackingEventList'
-  /traceability/V1/critical-tracking-event/{id}:
+  /traceability/V2/critical-tracking-event/{id}:
     summary: ''
     description: ''
     get:
@@ -180,7 +180,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/criticalTrackingEventListEntry'
-  /traceability/V1/operation:
+  /traceability/V2/operation:
     summary: ''
     description: ''
     post:
@@ -228,7 +228,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/operationResponseUpdate'
-  /traceability/V1/operator-party:
+  /traceability/V2/operator-party:
     summary: ''
     description: ''
     post:
@@ -253,7 +253,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/operatorParty'
-  /traceability/V1/container/{id}:
+  /traceability/V2/container/{id}:
     summary: ''
     description: ''
     get:
@@ -279,7 +279,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/containerResponse'
-  /traceability/V1/container-list:
+  /traceability/V2/container-list:
     summary: ''
     description: ''
     get:
@@ -329,7 +329,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/containerList'
-  /traceability/V1/device-resource-list:
+  /traceability/V2/device-resource-list:
     summary: ''
     description: ''
     get:
@@ -355,7 +355,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/deviceResourceList'
-  /traceability/V1/field/{id}:
+  /traceability/V2/field/{id}:
     summary: ''
     description: ''
     get:
@@ -381,7 +381,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/geospatial'
-  /traceability/V1/field-list:
+  /traceability/V2/field-list:
     summary: ''
     description: ''
     get:
@@ -407,7 +407,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/geospatialList'
-  /traceability/V1/traceable-resource-unit:
+  /traceability/V2/traceable-resource-unit:
     summary: ''
     description: ''
     post:
@@ -432,7 +432,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/traceableResourceUnitResponseCreate'
-  /traceability/V1/traceable-resource-unit/{id}:
+  /traceability/V2/traceable-resource-unit/{id}:
     summary: ''
     description: ''
     get:
@@ -487,7 +487,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/traceableResourceUnitResponseUpdate'
-  /traceability/V1/traceable-resource-unit-list:
+  /traceability/V2/traceable-resource-unit-list:
     summary: ''
     description: ''
     get:
@@ -552,7 +552,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/traceableResourceUnitList'
-  /traceability/V1/critical-tracking-event/{cteId}/traceable-resource-unit/{truId}/container-state:
+  /traceability/V2/traceable-resource-unit/{id}/container-state:
     summary: ''
     description: ''
     patch:
@@ -565,15 +565,9 @@ paths:
         - Traceable Resource Unit
       operationId: updateContainerState
       parameters:
-        - name: truId
+        - name: id
           in: path
-          description: 'identifier of the traceable resource unit'
-          required: true
-          schema:
-            type: string
-        - name: cteId
-          in: path
-          description: 'identifier of the critical tracking event'
+          description: ''
           required: true
           schema:
             type: string
